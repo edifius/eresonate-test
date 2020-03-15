@@ -6,13 +6,49 @@ const Form = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    const initialValidation = {}
+    const [validation, setValidation] = useState(initialValidation)
+
+    const validated = () => {
+        let newValidation = {}
+        const allValidated = () => {
+            for (let key of Object.keys(newValidation)){
+                if(newValidation[key] === false){
+                    return false;
+                }
+            }
+            return true;
+        }
+        if(name === ""){
+            newValidation.name = true
+        }
+        if(email === ""){
+            newValidation.email = true
+        }
+        if(phoneNumber === ""){
+            newValidation.phoneNumber = true
+        }
+        if(message === ""){
+            newValidation.message = true
+        }
+
+        setValidation(newValidation);
+        console.log(newValidation)
+
+        if(allValidated()){
+            return true;
+        }
+        return false;
+    }
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log("name: ", name)
-        console.log("phoneNumber: ", phoneNumber)
-        console.log("email: ", email)
-        console.log("message: ", message)
+        if(validated()){
+            console.log("name: ", name)
+            console.log("phoneNumber: ", phoneNumber)
+            console.log("email: ", email)
+            console.log("message: ", message)
+        }
     }
 
     return(
@@ -25,13 +61,15 @@ const Form = () => {
                         type="text" 
                         value={name}
                         onChange={e => setName(e.target.value)}/>
+                    { validation.name && <div className="error-message">Please Enter a Name</div> }
                 </div>
                 <div className="field">
                     <label>Phone Number</label>
-                    <input 
+                    <input
                         type="text" 
                         value={phoneNumber}
                         onChange={e => setPhoneNumber(e.target.value)}/>
+                    { validation.phoneNumber && <div className="error-message">Please Enter a Phone Number</div>}
                 </div>
                 <div className="field">
                     <label>Email</label>
@@ -39,6 +77,7 @@ const Form = () => {
                         type="text" 
                         value={email}
                         onChange={e => setEmail(e.target.value)}/>
+                    { validation.email && <div className="error-message">Please Enter a Email</div> }
                 </div>
                 <div className="field">
                     <label>Message</label>
@@ -46,6 +85,7 @@ const Form = () => {
                         type="text"
                         value={message}
                         onChange={e => setMessage(e.target.value)} />
+                    { validation.message && <div className="error-message">Please Enter a Message</div>}
                 </div>
                 <input className="submit" type="submit" value="Submit" />
             </form>
