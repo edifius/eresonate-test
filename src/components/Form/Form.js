@@ -21,10 +21,15 @@ const Form = (props) => {
             }
             return true;
         }
+        const validateEmail = (email) => (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email));
+
         if(name === ""){
             newValidation.name = true
         }
         if(email === ""){
+            newValidation.email = true
+        }
+        if(!validateEmail(email)){
             newValidation.email = true
         }
         if(phoneNumber === ""){
@@ -35,7 +40,6 @@ const Form = (props) => {
         }
 
         setValidation(newValidation);
-        console.log(newValidation)
 
         if(allValidated()){
             return true;
@@ -57,7 +61,7 @@ const Form = (props) => {
             console.log("phoneNumber: ", phoneNumber)
             console.log("email: ", email)
             console.log("message: ", message)
-            addToast("This is the toast!", {
+            addToast("We have successfully recieved your report!", {
                 appearance: 'success',
                 autoDismiss: true,
             })
@@ -91,7 +95,7 @@ const Form = (props) => {
                         type="text" 
                         value={email}
                         onChange={e => setEmail(e.target.value)}/>
-                    { validation.email && <div className="error-message">Please Enter a Email</div> }
+                    { validation.email && <div className="error-message">Please Enter a valid Email</div> }
                 </div>
                 <div className="field">
                     <label>Message</label>
