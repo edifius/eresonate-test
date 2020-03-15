@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./styles.scss";
+import { useToasts } from 'react-toast-notifications'
 
-const Form = () => {
+const Form = (props) => {
+    const { addToast } = useToasts()
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
@@ -12,8 +14,8 @@ const Form = () => {
     const validated = () => {
         let newValidation = {}
         const allValidated = () => {
-            for (let key of Object.keys(newValidation)){
-                if(newValidation[key] === false){
+            for (let key of ["email", "phoneNumber", "email", "message"]){
+                if(newValidation[key] !== undefined){
                     return false;
                 }
             }
@@ -41,6 +43,13 @@ const Form = () => {
         return false;
     }
 
+    const resetAllFields = () => {
+        setName("")
+        setEmail("")
+        setPhoneNumber("")
+        setMessage("")
+    }
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
         if(validated()){
@@ -48,6 +57,11 @@ const Form = () => {
             console.log("phoneNumber: ", phoneNumber)
             console.log("email: ", email)
             console.log("message: ", message)
+            addToast("This is the toast!", {
+                appearance: 'success',
+                autoDismiss: true,
+            })
+            resetAllFields()
         }
     }
 
