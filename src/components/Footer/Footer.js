@@ -42,7 +42,10 @@ const Footer = () => {
                     <div>Terms and Conditions</div>
                     <div>Privacy Policy</div>
                 </div>
-                <button  onClick={handleDefaultClick} className="action defualt-button">Default</button>
+                <button onClick={handleDefaultClick} className="action defualt-button">Default</button>
+            </div>
+            <div className="mobile-button-container">
+                <button onClick={handleDefaultClick} className="action defualt-button-mobile">Default</button>
             </div>
             
         </div>

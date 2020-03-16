@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import "./styles.scss";
 import { useToasts } from 'react-toast-notifications'
 
-const Form = (props) => {
+const Form = () => {
     const { addToast } = useToasts()
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
-    const initialValidation = {}
-    const [validation, setValidation] = useState(initialValidation)
+    const [validation, setValidation] = useState({})
 
     const validated = () => {
         let newValidation = {}
